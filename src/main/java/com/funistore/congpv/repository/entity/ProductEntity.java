@@ -8,19 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 @Getter
 @Setter
 public class ProductEntity {
     @Id
     private int id;
     private String name;
-    private String description;
     private Double price;
-    private int quantity;
-    private int category_id;
-    private int brand_id;
-    private int image_id;
-    private int status;
-    private int user_id;
 }
