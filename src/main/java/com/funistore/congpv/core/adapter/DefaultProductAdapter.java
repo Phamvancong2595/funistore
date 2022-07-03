@@ -1,10 +1,12 @@
 package com.funistore.congpv.core.adapter;
 
 import com.funistore.congpv.core.domain.Product;
+import com.funistore.congpv.infrastruture.config.CacheConfig;
 import com.funistore.congpv.infrastruture.mapper.ProductMapper;
 import com.funistore.congpv.repository.primary.ProductRepository;
 import com.funistore.congpv.repository.read_only.RoProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -27,6 +29,10 @@ public class DefaultProductAdapter implements ProductAdapter{
     }
 
     @Override
+    @Cacheable(
+            cacheNames = "productDetails",
+            unless = "#result == null",
+            cacheManager = CacheConfig.CACHE_REDIS)
     public Product loadProductDetails(Long id) {
         return productMapper.toModelV2(roProductRepository.getProductDetailsById(id));
     }
