@@ -4,6 +4,7 @@ import com.funistore.congpv.application.request.NewProductRequest;
 import com.funistore.congpv.core.adapter.ProductAdapter;
 import com.funistore.congpv.core.domain.Product;
 
+import com.funistore.congpv.infrastruture.exception.ProductNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,8 @@ public class ProductService {
     public List<Product> loadAllProducts(){
         return this.productAdapter.loadAllProducts();
     }
-    public Product loadProductDetails(Long id){
+    public  Product loadProductDetails(Long id) throws ProductNotFoundException {
+        log.info("> ProductService.loadProductDetails id = {}",id);
         return this.productAdapter.loadProductDetails(id);
     }
 }

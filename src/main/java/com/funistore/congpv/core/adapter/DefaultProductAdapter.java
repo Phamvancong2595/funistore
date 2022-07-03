@@ -2,6 +2,7 @@ package com.funistore.congpv.core.adapter;
 
 import com.funistore.congpv.core.domain.Product;
 import com.funistore.congpv.infrastruture.config.CacheConfig;
+import com.funistore.congpv.infrastruture.exception.ProductNotFoundException;
 import com.funistore.congpv.infrastruture.mapper.ProductMapper;
 import com.funistore.congpv.repository.primary.ProductRepository;
 import com.funistore.congpv.repository.read_only.RoProductRepository;
@@ -10,6 +11,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component("DefaultProductAdapter")
@@ -33,8 +35,10 @@ public class DefaultProductAdapter implements ProductAdapter{
             cacheNames = "productDetails",
             unless = "#result == null",
             cacheManager = CacheConfig.CACHE_REDIS)
-    public Product loadProductDetails(Long id) {
-        return productMapper.toModelV2(roProductRepository.getProductDetailsById(id));
+    public Product loadProductDetails(Long id) throws ProductNotFoundException {
+        Product product = productMapper.toModelV2(roProductRepository.getProductDetailsById(id));
+        if (Objects.isNull(product)) throw new ProductNotFoundException("Product not found");
+        return product;
     }
 
 }
