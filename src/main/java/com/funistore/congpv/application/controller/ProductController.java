@@ -3,7 +3,6 @@ package com.funistore.congpv.application.controller;
 import com.funistore.congpv.application.request.NewProductRequest;
 import com.funistore.congpv.application.response.FindProductResponse;
 import com.funistore.congpv.application.response.NewProductResponse;
-import com.funistore.congpv.core.domain.Product;
 import com.funistore.congpv.core.service.ProductService;
 import com.funistore.congpv.infrastruture.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;

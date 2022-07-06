@@ -16,10 +16,11 @@ import java.util.stream.Collectors;
 
 @Component("DefaultProductAdapter")
 @RequiredArgsConstructor
-public class DefaultProductAdapter implements ProductAdapter{
+public class DefaultProductAdapter implements ProductAdapter {
     private final ProductRepository productRepository;
     private final RoProductRepository roProductRepository;
     private final ProductMapper productMapper;
+
     @Override
     public List<Product> loadAllProducts() {
         return roProductRepository.findAll().stream().map(productMapper::toModel).collect(Collectors.toList());
